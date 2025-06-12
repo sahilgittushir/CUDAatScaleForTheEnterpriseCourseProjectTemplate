@@ -73,8 +73,6 @@ Processed 6 images in 312 ms
 
 ## Before & After Rotation
 
-## Before & After Rotation
-
 | Sample   | Original                                                      | Rotated                                                       |
 |----------|---------------------------------------------------------------|---------------------------------------------------------------|
 | **arrow**  | <img src="data/input/sample1.png"    alt="orig1" width="200"/> | <img src="artifacts/rotated_sample1.png" alt="rot1" width="200"/> |
