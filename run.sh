@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
 set -e
 
-# 1) Build the rotation binary
-make clean && make all
+# Where our binary lives
+BIN=bin/imageRotationNPP
 
-# 2) Prepare artifacts directory
+# Angle to rotate by
+ANGLE=45
+
+# Ensure artifacts folder exists
 mkdir -p artifacts
 
-# 3) Rotate each PNG image by 45 degrees
-for img in data/input/*.png; do
-  base=$(basename "$img")
-  bin/imageRotationNPP \
-    --input  "$img" \
-    --output "artifacts/rotated_$base" \
-    --angle 45
+# Process each PNG in data/input
+for infile in data/input/*.png; do
+  base=$(basename "$infile")
+  outfile="artifacts/rotated_${base}"
+  echo "Rotating $infile → $outfile"
+  $BIN "$infile" "$outfile" $ANGLE
 done
 
-# 4) Log the count
+# Write proof log
 echo "Processed $(ls data/input/*.png | wc -l) images" > artifacts/run.log
+echo "Done. See artifacts/rotated_*.png and artifacts/run.log"
