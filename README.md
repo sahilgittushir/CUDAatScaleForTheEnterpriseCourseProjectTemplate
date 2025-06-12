@@ -73,14 +73,13 @@ Processed 6 images in 312 ms
 
 ## Before & After Rotation
 
-| Sample   | Original                                                      | Rotated                                                       |
-|----------|---------------------------------------------------------------|---------------------------------------------------------------|
-| **arrow**  | <img src="data/input/sample1.png"    alt="orig1" width="200"/> | <img src="artifacts/rotated_sample1.png" alt="rot1" width="200"/> |
-| **sample2**| <img src="data/input/sample2.png"    alt="orig2" width="200"/> | <img src="artifacts/rotated_sample2.png" alt="rot2" width="200"/> |
-| **sample3**| <img src="data/input/sample3.png"    alt="orig3" width="200"/> | <img src="artifacts/rotated_sample3.png" alt="rot3" width="200"/> |
-| **sample4**| <img src="data/input/sample4.png"    alt="orig4" width="200"/> | <img src="artifacts/rotated_sample4.png" alt="rot4" width="200"/> |
-| **sample5**| <img src="data/input/sample5.png"    alt="orig5" width="200"/> | <img src="artifacts/rotated_sample5.png" alt="rot5" width="200"/> |
-
+| Sample      | Original                                                                                                                                   | Rotated                                                                                                                                     |
+|-------------|--------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| **arrow**   | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample1.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample1.png" width="200"/> |
+| **sample2** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample2.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample2.png" width="200"/> |
+| **sample3** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample3.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample3.png" width="200"/> |
+| **sample4** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample4.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample4.png" width="200"/> |
+| **sample5** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample5.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample5.png" width="200"/> |
 
 
 
