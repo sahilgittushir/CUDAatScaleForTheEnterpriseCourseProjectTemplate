@@ -73,13 +73,16 @@ Processed 6 images in 312 ms
 
 ## Before & After Rotation
 
-| Sample      | Original                             | Rotated                                |
-|-------------|--------------------------------------|----------------------------------------|
-| **arrow**   | ![orig1](data/input/sample1.png)     | ![rot1](artifacts/rotated_sample1.png) |
-| **sample2** | ![orig2](data/input/sample2.png)     | ![rot2](artifacts/rotated_sample2.png) |
-| **sample3** | ![orig3](data/input/sample3.png)     | ![rot3](artifacts/rotated_sample3.png) |
-| **sample4** | ![orig4](data/input/sample4.png)     | ![rot4](artifacts/rotated_sample4.png) |
-| **sample5** | ![orig5](data/input/sample5.png)     | ![rot5](artifacts/rotated_sample5.png) |
+## Before & After Rotation
+
+| Sample   | Original                                                      | Rotated                                                       |
+|----------|---------------------------------------------------------------|---------------------------------------------------------------|
+| **arrow**  | <img src="data/input/sample1.png"    alt="orig1" width="200"/> | <img src="artifacts/rotated_sample1.png" alt="rot1" width="200"/> |
+| **sample2**| <img src="data/input/sample2.png"    alt="orig2" width="200"/> | <img src="artifacts/rotated_sample2.png" alt="rot2" width="200"/> |
+| **sample3**| <img src="data/input/sample3.png"    alt="orig3" width="200"/> | <img src="artifacts/rotated_sample3.png" alt="rot3" width="200"/> |
+| **sample4**| <img src="data/input/sample4.png"    alt="orig4" width="200"/> | <img src="artifacts/rotated_sample4.png" alt="rot4" width="200"/> |
+| **sample5**| <img src="data/input/sample5.png"    alt="orig5" width="200"/> | <img src="artifacts/rotated_sample5.png" alt="rot5" width="200"/> |
+
 
 
 
