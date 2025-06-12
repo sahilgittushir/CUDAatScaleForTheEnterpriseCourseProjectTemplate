@@ -32,19 +32,29 @@
 ################################################################################
 
 # Define the compiler and flags
-NVCC = /usr/local/cuda/bin/nvcc
-CXX = g++
-CXXFLAGS = -std=c++11 -I/usr/local/cuda/include -Iinclude
-LDFLAGS = -L/usr/local/cuda/lib64 -lcudart -lnppc -lnppial -lnppicc -lnppidei -lnppif -lnppig -lnppim -lnppist -lnppisu -lnppitc
+NVCC     = nvcc
 
-# Define directories
+# Host‐side flags (none needed for this minimal CUDA-only code)
+CXXFLAGS = -std=c++11 \
+           -Iinclude \
+           -I/usr/include
+
+# Link only CUDA runtime and FreeImage
+LDFLAGS  = -lcudart \
+           -lfreeimage
+
+
+
+
+
+
 SRC_DIR = src
 BIN_DIR = bin
 DATA_DIR = data
 LIB_DIR = lib
 
 # Define source files and target executable
-SRC = $(SRC_DIR)/imageRotationNPP.cpp
+SRC = $(SRC_DIR)/imageRotationNPP.cu
 TARGET = $(BIN_DIR)/imageRotationNPP
 
 # Define the default rule

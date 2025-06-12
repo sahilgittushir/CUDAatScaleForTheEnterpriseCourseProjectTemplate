@@ -32,179 +32,63 @@
 #pragma warning(disable : 4819)
 #endif
 
-#include <Exceptions.h>
-#include <ImageIO.h>
-#include <ImagesCPU.h>
-#include <ImagesNPP.h>
 
-#include <string.h>
-#include <fstream>
-#include <iostream>
-
+#include <FreeImage.h>
 #include <cuda_runtime.h>
-#include <npp.h>
+#include <cmath>
+#include <cstdio>
 
-#include <helper_cuda.h>
-#include <helper_string.h>
+// Simple 45°-rotation kernel (nearest-neighbor)
+__global__ void rotateKernel(uchar4* in, uchar4* out, int w, int h, float angleRad) {
+    int x = blockIdx.x * blockDim.x + threadIdx.x;
+    int y = blockIdx.y * blockDim.y + threadIdx.y;
+    if (x >= w || y >= h) return;
 
-bool printfNPPinfo(int argc, char *argv[])
-{
-    const NppLibraryVersion *libVer = nppGetLibVersion();
+    float cx = w * 0.5f, cy = h * 0.5f;
+    float xr =  (x - cx) * cosf(angleRad) + (y - cy) * sinf(angleRad) + cx;
+    float yr = -(x - cx) * sinf(angleRad) + (y - cy) * cosf(angleRad) + cy;
+    int xi = __float2int_rn(xr), yi = __float2int_rn(yr);
 
-    printf("NPP Library Version %d.%d.%d\n", libVer->major, libVer->minor,
-           libVer->build);
-
-    int driverVersion, runtimeVersion;
-    cudaDriverGetVersion(&driverVersion);
-    cudaRuntimeGetVersion(&runtimeVersion);
-
-    printf("  CUDA Driver  Version: %d.%d\n", driverVersion / 1000,
-           (driverVersion % 100) / 10);
-    printf("  CUDA Runtime Version: %d.%d\n", runtimeVersion / 1000,
-           (runtimeVersion % 100) / 10);
-
-    // Min spec is SM 1.0 devices
-    bool bVal = checkCudaCapabilities(1, 0);
-    return bVal;
+    if (xi >= 0 && xi < w && yi >= 0 && yi < h)
+        out[y * w + x] = in[yi * w + xi];
+    else
+        out[y * w + x] = make_uchar4(0,0,0,255);
 }
 
-int main(int argc, char *argv[])
-{
-    printf("%s Starting...\n\n", argv[0]);
-
-    try
-    {
-        std::string sFilename;
-        char *filePath;
-
-        findCudaDevice(argc, (const char **)argv);
-
-        if (printfNPPinfo(argc, argv) == false)
-        {
-            exit(EXIT_SUCCESS);
-        }
-
-        if (checkCmdLineFlag(argc, (const char **)argv, "input"))
-        {
-            getCmdLineArgumentString(argc, (const char **)argv, "input", &filePath);
-        }
-        else
-        {
-            filePath = sdkFindFilePath("Lena.pgm", argv[0]);
-        }
-
-        if (filePath)
-        {
-            sFilename = filePath;
-        }
-        else
-        {
-            sFilename = "Lena.pgm";
-        }
-
-        // if we specify the filename at the command line, then we only test
-        // sFilename[0].
-        int file_errors = 0;
-        std::ifstream infile(sFilename.data(), std::ifstream::in);
-
-        if (infile.good())
-        {
-            std::cout << "nppiRotate opened: <" << sFilename.data()
-                      << "> successfully!" << std::endl;
-            file_errors = 0;
-            infile.close();
-        }
-        else
-        {
-            std::cout << "nppiRotate unable to open: <" << sFilename.data() << ">"
-                      << std::endl;
-            file_errors++;
-            infile.close();
-        }
-
-        if (file_errors > 0)
-        {
-            exit(EXIT_FAILURE);
-        }
-
-        std::string sResultFilename = sFilename;
-
-        std::string::size_type dot = sResultFilename.rfind('.');
-
-        if (dot != std::string::npos)
-        {
-            sResultFilename = sResultFilename.substr(0, dot);
-        }
-
-        sResultFilename += "_rotate.pgm";
-
-        if (checkCmdLineFlag(argc, (const char **)argv, "output"))
-        {
-            char *outputFilePath;
-            getCmdLineArgumentString(argc, (const char **)argv, "output",
-                                     &outputFilePath);
-            sResultFilename = outputFilePath;
-        }
-
-        // declare a host image object for an 8-bit grayscale image
-        npp::ImageCPU_8u_C1 oHostSrc;
-        // load gray-scale image from disk
-        npp::loadImage(sFilename, oHostSrc);
-        // declare a device image and copy construct from the host image,
-        // i.e. upload host to device
-        npp::ImageNPP_8u_C1 oDeviceSrc(oHostSrc);
-
-        // create struct with the ROI size
-        NppiSize oSrcSize = {(int)oDeviceSrc.width(), (int)oDeviceSrc.height()};
-        NppiPoint oSrcOffset = {0, 0};
-        NppiSize oSizeROI = {(int)oDeviceSrc.width(), (int)oDeviceSrc.height()};
-
-        // Calculate the bounding box of the rotated image
-        NppiRect oBoundingBox;
-        double angle = 45.0; // Rotation angle in degrees
-        NPP_CHECK_NPP(nppiGetRotateBound(oSrcSize, angle, &oBoundingBox));
-
-        // allocate device image for the rotated image
-        npp::ImageNPP_8u_C1 oDeviceDst(oBoundingBox.width, oBoundingBox.height);
-
-        // Set the rotation point (center of the image)
-        NppiPoint oRotationCenter = {(int)(oSrcSize.width / 2), (int)(oSrcSize.height / 2)};
-
-        // run the rotation
-        NPP_CHECK_NPP(nppiRotate_8u_C1R(
-            oDeviceSrc.data(), oSrcSize, oDeviceSrc.pitch(), oSrcOffset,
-            oDeviceDst.data(), oDeviceDst.pitch(), oBoundingBox, angle, oRotationCenter,
-            NPPI_INTER_NN));
-
-        // declare a host image for the result
-        npp::ImageCPU_8u_C1 oHostDst(oDeviceDst.size());
-        // and copy the device result data into it
-        oDeviceDst.copyTo(oHostDst.data(), oHostDst.pitch());
-
-        saveImage(sResultFilename, oHostDst);
-        std::cout << "Saved image: " << sResultFilename << std::endl;
-
-        nppiFree(oDeviceSrc.data());
-        nppiFree(oDeviceDst.data());
-
-        exit(EXIT_SUCCESS);
+int main(int argc, char** argv) {
+    if (argc != 4) {
+        printf("Usage: %s input.png output.png angle\n", argv[0]);
+        return 1;
     }
-    catch (npp::Exception &rException)
-    {
-        std::cerr << "Program error! The following exception occurred: \n";
-        std::cerr << rException << std::endl;
-        std::cerr << "Aborting." << std::endl;
+    const char* inPath  = argv[1];
+    const char* outPath = argv[2];
+    float angleDeg = atof(argv[3]);
+    float angleRad = angleDeg * 3.14159265f / 180.0f;
 
-        exit(EXIT_FAILURE);
-    }
-    catch (...)
-    {
-        std::cerr << "Program error! An unknown type of exception occurred. \n";
-        std::cerr << "Aborting." << std::endl;
+    FreeImage_Initialise();
+    FIBITMAP* dib = FreeImage_Load(FIF_PNG, inPath);
+    FIBITMAP* dib32 = FreeImage_ConvertTo32Bits(dib);
+    FreeImage_Unload(dib);
+    int w = FreeImage_GetWidth(dib32);
+    int h = FreeImage_GetHeight(dib32);
+    uchar4* hostData = (uchar4*)FreeImage_GetBits(dib32);
 
-        exit(EXIT_FAILURE);
-        return -1;
-    }
+    size_t size = w * h * sizeof(uchar4);
+    uchar4 *d_in, *d_out;
+    cudaMalloc(&d_in,  size);
+    cudaMalloc(&d_out, size);
+    cudaMemcpy(d_in, hostData, size, cudaMemcpyHostToDevice);
 
+    dim3 block(16,16), grid((w+15)/16,(h+15)/16);
+    rotateKernel<<<grid,block>>>(d_in, d_out, w, h, angleRad);
+    cudaDeviceSynchronize();
+
+    cudaMemcpy(hostData, d_out, size, cudaMemcpyDeviceToHost);
+    cudaFree(d_in);
+    cudaFree(d_out);
+
+    FreeImage_Save(FIF_PNG, dib32, outPath);
+    FreeImage_Unload(dib32);
+    FreeImage_DeInitialise();
     return 0;
 }
