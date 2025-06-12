@@ -21,7 +21,7 @@ A **GPU-accelerated** batch pipeline that rotates a folder of PNG images by **45
 └── README.md              # You are here!
 ```
 
-#🔧 Prerequisites
+🔧 Prerequisites
 NVIDIA GPU with CUDA support
 
 CUDA Toolkit (nvcc on your PATH)
