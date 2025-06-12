@@ -71,15 +71,16 @@ Rotating data/input/sample1.png → artifacts/rotated_sample1.png
 Processed 6 images in 312 ms
 ```
 
+
 ## Before & After Rotation
 
-| Sample      | Original                                                                                                                                   | Rotated                                                                                                                                     |
-|-------------|--------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| **arrow**   | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample1.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample1.png" width="200"/> |
-| **sample2** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample2.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample2.png" width="200"/> |
-| **sample3** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample3.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample3.png" width="200"/> |
-| **sample4** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample4.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample4.png" width="200"/> |
-| **sample5** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample5.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample5.png" width="200"/> |
+| Sample    | Original                                                                                                                                             | Rotated                                                                                                                                               |
+|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **arrow** | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample1.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample1.png" width="200"/> |
+| **dice**  | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample2.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample2.png" width="200"/> |
+| **smiley**| <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample3.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample3.png" width="200"/> |
+| **logo**  | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample4.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample4.png" width="200"/> |
+| **svg**   | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/data/input/sample5.png" width="200"/> | <img src="https://raw.githubusercontent.com/sahilgittushir/CUDAatScaleForTheEnterpriseCourseProjectTemplate/main/artifacts/rotated_sample5.png" width="200"/> |
 
 
 
