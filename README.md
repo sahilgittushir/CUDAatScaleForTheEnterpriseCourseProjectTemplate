@@ -21,7 +21,7 @@ A **GPU-accelerated** batch pipeline that rotates a folder of PNG images by **45
 └── README.md              # You are here!
 ```
 
-🔧 Prerequisites
+## 🔧 Prerequisites
 NVIDIA GPU with CUDA support
 
 CUDA Toolkit (nvcc on your PATH)
@@ -30,7 +30,7 @@ FreeImage development headers (e.g. libfreeimage-dev)
 
 Linux or WSL2 on Windows (bash, make, curl available)
 
-🏗️ Build
+## 🏗️ Build
 ```bash
 make clean && make all
 ```
@@ -47,7 +47,7 @@ nvcc -std=c++11 \
 
 -lfreeimage links the loader/saver
 ```
-# ▶️ Run
+## ▶️ Run
 ```bash
 
 bash run.sh
@@ -84,7 +84,7 @@ Processed 6 images in 312 ms
 
 
 
-#⚙️ How It Works
+## ⚙️ How It Works
 
 -Host code uses FreeImage to load/save PNG.
 
@@ -94,17 +94,17 @@ Processed 6 images in 312 ms
 float xr = cosθ*(x - cx) - sinθ*(y - cy) + cx;
 float yr = sinθ*(x - cx) + cosθ*(y - cy) + cy;
 ```
-#Each CUDA thread processes one output pixel—perfect for large images or many small ones.
+## Each CUDA thread processes one output pixel—perfect for large images or many small ones.
 
-#📝 License & Credit
+## 📝 License & Credit
 Free to adapt under MIT terms.
 
 Original template by NVIDIA & Coursera.
 
-#Tip: Try adjusting the angle (in run.sh) or adding new inputs to see real-time GPU speedups.
+## Tip: Try adjusting the angle (in run.sh) or adding new inputs to see real-time GPU speedups.
 
-This README:
+## This README:
 
-- Mirrors the assignment rubric: **Overview**, **Structure**, **Prerequisites**, **Build/Run**, **Proof**, and **Implementation Details**  
-- Includes a collapsible “Before & After” comparison table  
-- Uses clear markdown styling for maximum readability  
+    - Mirrors the assignment rubric: **Overview**, **Structure**, **Prerequisites**, **Build/Run**, **Proof**, and **Implementation Details**  
+    - Includes a collapsible “Before & After” comparison table  
+    - Uses clear markdown styling for maximum readability  
